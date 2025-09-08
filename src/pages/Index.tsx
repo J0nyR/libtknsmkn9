@@ -1,17 +1,46 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from 'react';
+import Navbar from '../components/library/Navbar';
+import HeroSection from '../components/library/HeroSection';
+import CategorySection from '../components/library/CategorySection';
+import FilmSection from '../components/library/FilmSection';
+import PptSection from '../components/library/PptSection';
+import SearchSection from '../components/library/SearchSection';
+import AdminSection from '../components/library/AdminSection';
+import Footer from '../components/library/Footer';
+import { initialLibraryData } from '../data/libraryData';
 
-import { MadeWithDyad } from "@/components/made-with-dyad";
+type Page = 'beranda' | 'kategori' | 'film' | 'ppt' | 'pencarian' | 'admin';
 
 const Index = () => {
+  const [activePage, setActivePage] = useState<Page>('beranda');
+  const [libraryData, setLibraryData] = useState(initialLibraryData);
+
+  const renderPage = () => {
+    switch (activePage) {
+      case 'beranda':
+        return <HeroSection setActivePage={setActivePage} />;
+      case 'kategori':
+        return <CategorySection libraryData={libraryData} />;
+      case 'film':
+        return <FilmSection />;
+      case 'ppt':
+        return <PptSection />;
+      case 'pencarian':
+        return <SearchSection libraryData={libraryData} />;
+      case 'admin':
+        return <AdminSection />;
+      default:
+        return <HeroSection setActivePage={setActivePage} />;
+    }
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">
-          Start building your amazing project here!
-        </p>
-      </div>
-      <MadeWithDyad />
+    <div className="bg-gray-50 font-sans">
+      <Navbar setActivePage={setActivePage} />
+      <main>
+        {renderPage()}
+      </main>
+      <Footer />
     </div>
   );
 };
