@@ -1,8 +1,10 @@
 import { Ship, Library, Search, Globe, Film, Presentation, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
+type Page = 'beranda' | 'kategori' | 'film' | 'ppt' | 'pencarian' | 'admin';
+
 interface HeroSectionProps {
-  setActivePage: (page: string) => void;
+  setActivePage: (page: Page) => void;
 }
 
 const HeroSection = ({ setActivePage }: HeroSectionProps) => {
@@ -15,7 +17,7 @@ const HeroSection = ({ setActivePage }: HeroSectionProps) => {
           <h2 className="text-3xl md:text-4xl font-bold mb-6 opacity-90">Perpustakaan Digital TKN</h2>
           <p className="text-xl md:text-2xl mb-4 opacity-90">Program Studi Teknika Kapal Niaga</p>
           <p className="text-lg opacity-80 max-w-3xl mx-auto mb-8">
-            Selamat datang di Perpustakaan Digital TKN SMKN 9 Pontianak. Akses digital terhadap buku-buku wajib dan referensi berbasis kurikulum IMO dan standar internasional tersedia untuk mendukung pembelajaran Anda.
+            Selamat datang di Perpustakaan Digital TKN SMKN 9 Pontianak. Akses digital terhadap buku-buku , film-film , PPT wajib dan referensi berbasis kurikulum IMO dan standar internasional tersedia untuk mendukung pembelajaran Anda.
           </p>
         </div>
 
