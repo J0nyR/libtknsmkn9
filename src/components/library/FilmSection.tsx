@@ -1,9 +1,16 @@
 import { Globe, Film as FilmIcon, Video, Award, Ship, Anchor, Wrench, GraduationCap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { getDriveLink } from '../../lib/driveLinks';
+import { getCategoryName } from '../../data/libraryData';
 
 const FilmSection = () => {
   const openGoogleDrive = (category: string) => {
-    alert(`Membuka Google Drive untuk: ${category}. (Fungsi Demo)`);
+    const link = getDriveLink(category);
+    if (link) {
+      window.open(link, '_blank');
+    } else {
+      alert(`Link Google Drive untuk kategori "${getCategoryName(category)}" belum diatur. Silakan atur di Panel Admin.`);
+    }
   };
 
   return (

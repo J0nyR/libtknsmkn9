@@ -1,5 +1,6 @@
 import { Globe, Book, List, ExternalLink, School } from 'lucide-react';
-import { LibraryData } from '../../data/libraryData';
+import { LibraryData, getCategoryName } from '../../data/libraryData';
+import { getDriveLink } from '../../lib/driveLinks';
 
 interface CategorySectionProps {
   libraryData: LibraryData;
@@ -15,9 +16,12 @@ const categories = [
 
 const CategorySection = ({ libraryData }: CategorySectionProps) => {
   const openGoogleDrive = (category: string) => {
-    // In a real app, you would fetch this link from a config or state management
-    alert(`Membuka Google Drive untuk kategori: ${category}. (Fungsi Demo)`);
-    // window.open(driveLinks[category], '_blank');
+    const link = getDriveLink(category);
+    if (link) {
+      window.open(link, '_blank');
+    } else {
+      alert(`Link Google Drive untuk kategori "${getCategoryName(category)}" belum diatur. Silakan atur di Panel Admin.`);
+    }
   };
 
   return (
