@@ -1,7 +1,7 @@
-import { Ship, Library, Search, Globe, Film, Presentation, Settings } from 'lucide-react';
+import { Ship, Library, Search, Globe, Film, Presentation } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-type Page = 'beranda' | 'kategori' | 'film' | 'ppt' | 'pencarian' | 'admin';
+type Page = 'beranda' | 'kategori' | 'film' | 'ppt' | 'pencarian';
 
 interface HeroSectionProps {
   setActivePage: (page: Page) => void;
@@ -51,9 +51,6 @@ const HeroSection = ({ setActivePage }: HeroSectionProps) => {
           </Button>
           <Button onClick={() => setActivePage('pencarian')} variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-blue-600">
             <Search className="mr-2 h-4 w-4" />Cari Buku
-          </Button>
-          <Button onClick={() => setActivePage('admin')} className="bg-yellow-500 hover:bg-yellow-600">
-            <Settings className="mr-2 h-4 w-4" />Panel Admin
           </Button>
         </div>
       </div>

@@ -1,10 +1,14 @@
 import { useState } from 'react';
-import { Anchor, Menu } from 'lucide-react';
+import { Anchor, Menu, Plus, Settings } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
-type Page = 'beranda' | 'kategori' | 'film' | 'ppt' | 'pencarian' | 'admin';
+type Page = 'beranda' | 'kategori' | 'film' | 'ppt' | 'pencarian';
 
 interface NavbarProps {
+  activePage: Page;
   setActivePage: (page: Page) => void;
+  onOpenAddModal: () => void;
+  onOpenLinksModal: () => void;
 }
 
 const navLinks: { id: Page; label: string }[] = [
@@ -13,10 +17,9 @@ const navLinks: { id: Page; label: string }[] = [
   { id: 'film', label: 'Film' },
   { id: 'ppt', label: 'PPT TKN' },
   { id: 'pencarian', label: 'Pencarian' },
-  { id: 'admin', label: 'Admin' },
 ];
 
-const Navbar = ({ setActivePage }: NavbarProps) => {
+const Navbar = ({ activePage, setActivePage, onOpenAddModal, onOpenLinksModal }: NavbarProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleNavClick = (page: Page) => {
@@ -38,19 +41,21 @@ const Navbar = ({ setActivePage }: NavbarProps) => {
             </div>
           </div>
 
-          <div className="hidden md:flex space-x-8">
+          <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
               <button
                 key={link.id}
                 onClick={() => handleNavClick(link.id)}
-                className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+                className={`font-medium transition-colors ${activePage === link.id ? 'text-blue-600' : 'text-gray-700 hover:text-blue-600'}`}
               >
                 {link.label}
               </button>
             ))}
           </div>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2">
+             <Button onClick={onOpenAddModal} size="sm"><Plus className="mr-2 h-4 w-4" /> Tambah Item</Button>
+             <Button onClick={onOpenLinksModal} size="sm" variant="outline"><Settings className="mr-2 h-4 w-4" /> Kelola Link</Button>
             <button className="md:hidden text-gray-700" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
               <Menu className="text-xl" />
             </button>

@@ -5,15 +5,29 @@ import CategorySection from '../components/library/CategorySection';
 import FilmSection from '../components/library/FilmSection';
 import PptSection from '../components/library/PptSection';
 import SearchSection from '../components/library/SearchSection';
-import AdminSection from '../components/library/AdminSection';
 import Footer from '../components/library/Footer';
-import { initialLibraryData } from '../data/libraryData';
+import { initialLibraryData, LibraryData, LibraryItem } from '../data/libraryData';
+import ManageLinksModal from '../components/library/ManageLinksModal';
+import AddItemModal from '../components/library/AddItemModal';
 
-type Page = 'beranda' | 'kategori' | 'film' | 'ppt' | 'pencarian' | 'admin';
+type Page = 'beranda' | 'kategori' | 'film' | 'ppt' | 'pencarian';
 
 const Index = () => {
   const [activePage, setActivePage] = useState<Page>('beranda');
-  const [libraryData, setLibraryData] = useState(initialLibraryData);
+  const [libraryData, setLibraryData] = useState<LibraryData>(initialLibraryData);
+  const [isLinksModalOpen, setIsLinksModalOpen] = useState(false);
+  const [isAddItemModalOpen, setIsAddItemModalOpen] = useState(false);
+
+  const handleAddItem = (item: LibraryItem) => {
+    // This is a simplified logic. In a real app, you'd find the correct category for the item.
+    // For now, we'll add it to a generic category like 'internal'.
+    const category = item.type === 'book' ? 'internal' : item.type === 'film' ? 'film-relevan' : 'ppt-tkn';
+
+    setLibraryData(prevData => {
+      const newCategoryData = [...(prevData[category] || []), item];
+      return { ...prevData, [category]: newCategoryData };
+    });
+  };
 
   const renderPage = () => {
     switch (activePage) {
@@ -27,8 +41,6 @@ const Index = () => {
         return <PptSection />;
       case 'pencarian':
         return <SearchSection libraryData={libraryData} />;
-      case 'admin':
-        return <AdminSection />;
       default:
         return <HeroSection setActivePage={setActivePage} />;
     }
@@ -36,11 +48,22 @@ const Index = () => {
 
   return (
     <div className="bg-gray-50 font-sans">
-      <Navbar setActivePage={setActivePage} />
+      <Navbar 
+        activePage={activePage}
+        setActivePage={setActivePage} 
+        onOpenAddModal={() => setIsAddItemModalOpen(true)}
+        onOpenLinksModal={() => setIsLinksModalOpen(true)}
+      />
       <main>
         {renderPage()}
       </main>
       <Footer />
+      <ManageLinksModal isOpen={isLinksModalOpen} onClose={() => setIsLinksModalOpen(false)} />
+      <AddItemModal 
+        isOpen={isAddItemModalOpen} 
+        onClose={() => setIsAddItemModalOpen(false)}
+        onAddItem={handleAddItem}
+      />
     </div>
   );
 };
