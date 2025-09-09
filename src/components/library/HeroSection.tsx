@@ -12,7 +12,7 @@ const HeroSection = ({ setActivePage }: HeroSectionProps) => {
     <section id="beranda" className="gradient-bg text-white py-20 min-h-screen flex items-center">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="mb-8">
-          <Ship className="text-6xl mb-6 opacity-90 mx-auto" />
+          <Ship size={180} className="mb-6 opacity-90 mx-auto" />
           <h1 className="text-4xl md:text-6xl font-bold mb-6">Selamat Datang</h1>
           <h2 className="text-3xl md:text-4xl font-bold mb-6 opacity-90">Perpustakaan Digital TKN</h2>
           <p className="text-xl md:text-2xl mb-4 opacity-90">Program Studi Teknika Kapal Niaga</p>
