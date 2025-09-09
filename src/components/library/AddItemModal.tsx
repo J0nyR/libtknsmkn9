@@ -38,7 +38,7 @@ const AddItemModal = ({ isOpen, onClose, onAddItem }: AddItemModalProps) => {
       status: 'available',
       source: 'internal',
       link: '#',
-      // Add type-specific fields if needed, e.g., isbn for book
+      category: category,
     };
     
     onAddItem(newItem);

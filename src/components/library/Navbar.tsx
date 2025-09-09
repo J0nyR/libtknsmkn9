@@ -1,14 +1,11 @@
 import { useState } from 'react';
-import { Anchor, Menu, Plus, Settings } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Anchor, Menu } from 'lucide-react';
 
 type Page = 'beranda' | 'kategori' | 'film' | 'ppt' | 'pencarian';
 
 interface NavbarProps {
   activePage: Page;
   setActivePage: (page: Page) => void;
-  onOpenAddModal: () => void;
-  onOpenLinksModal: () => void;
 }
 
 const navLinks: { id: Page; label: string }[] = [
@@ -19,7 +16,7 @@ const navLinks: { id: Page; label: string }[] = [
   { id: 'pencarian', label: 'Pencarian' },
 ];
 
-const Navbar = ({ activePage, setActivePage, onOpenAddModal, onOpenLinksModal }: NavbarProps) => {
+const Navbar = ({ activePage, setActivePage }: NavbarProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleNavClick = (page: Page) => {
@@ -53,9 +50,7 @@ const Navbar = ({ activePage, setActivePage, onOpenAddModal, onOpenLinksModal }:
             ))}
           </div>
 
-          <div className="flex items-center space-x-2">
-             <Button onClick={onOpenAddModal} size="sm"><Plus className="mr-2 h-4 w-4" /> Tambah Item</Button>
-             <Button onClick={onOpenLinksModal} size="sm" variant="outline"><Settings className="mr-2 h-4 w-4" /> Kelola Link</Button>
+          <div className="flex items-center">
             <button className="md:hidden text-gray-700" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
               <Menu className="text-xl" />
             </button>

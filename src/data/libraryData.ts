@@ -11,6 +11,7 @@ export interface LibraryItem {
     link: string;
     duration?: string;
     slides?: string;
+    category?: string;
 }
 
 export interface LibraryData {
